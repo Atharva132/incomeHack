@@ -27,7 +27,6 @@ const goalRoutes = require('./routes/goals');
 const debtRoutes = require('./routes/debts');
 const userRoutes = require('./routes/users');
 
-mongodb://localhost:27017/budget
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
