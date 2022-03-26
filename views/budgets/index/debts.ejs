@@ -1,0 +1,67 @@
+<h1 class="pb-3">Your Debts</h1>
+    <div  class="overflow-auto" style=" max-height: 536px;">
+        <% if (debts.length === 0) { %>
+            <div class="border border-3 rounded-3 m-2 p-3 ps-3"> 
+                <h3>Your debts will appear here</h2>
+                <h4>Start by adding debts</h3>
+                <div class="form-group clearfix col-3 p-0">
+                    <a href="/incomehack/debt/new" class="text-decoration-none">
+                        <button class="btn btn-success float-end"> Add Debt </button>
+                    </a>
+                </div>
+            </div>
+        <% } else { %> 
+            <% for (let debt of debts) { %> 
+                <div class="container row d-flex flex-column">
+                    <div class="card text-dark bg-light d-flex">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <% if (debt.repayed === debt.amount) { %> 
+                                    <div class="text-success"><h4>Debt Repayed</h4></div>
+                                <% } %> 
+                                <%= debt.debt %> <span class="float-end"><%= Math.round(percent(debt.repayed).of(debt.amount)) %>% Repayed </span>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Debt Amount: ₹<%= debt.amount %> </h6>
+                            <p class="card-text">Debt Repayed: ₹<%= debt.repayed %> </p>
+                            <form action="incomehack/debt/<%= debt._id %>?_method=PATCH" method="post" validate>
+                                <div class="container row ps-3 pe-0 me-0">
+                                    <div class="col-4 p-0">
+                                        <label class="form-label" for="addRepayed">Add Repayed Amount:</label>
+                                    </div>
+                                    <div class="col-4 p-0">
+                                        <input class="form-control" type="number" id="addRepayed" name="addRepayed" placeholder="Amount" required>
+                                    </div>
+                                    <div class="form-group clearfix col-3 p-0">
+                                        <button class="btn btn-success float-end"> Add </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="container row mt-3 ps-3 pe-0 me-0">
+                                <div class="col-4">
+                                    <a class="card-link btn btn-info" href="/incomehack/debt/<%= debt._id %>/edit">Edit Debt</a>
+                                </div>
+                                <div class="col-3 m-0 p-0">
+                                    <form class="d-inline" action="incomehack/debt/<%= debt._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                                <div class="col-5 m-0 p-0">
+                                    <form class="d-inline" action="incomehack/debt/complete/<%= debt._id %>?_method=PATCH" method="POST">
+                                        <button class="btn btn-info">Mark as Repayed</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            <% } %> 
+        <% } %> 
+    </div>
+    <% if (debts.length !== 0) { %> 
+        <div class="form-group clearfix p-0 mt-3 mb-2">
+            <a href="/incomehack/debt/new" class="text-decoration-none">
+                <button class="btn btn-success float-end"> Add New Debt </button>
+            </a>
+        </div>
+    <% } %> 

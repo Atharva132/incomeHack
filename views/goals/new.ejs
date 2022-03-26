@@ -1,0 +1,35 @@
+<% layout('layouts/boilerplate')%>
+<div class="row col-md-6 offset-md-3 border border-2 border-success rounded-3 py-4 bg-light my-5">
+    <h1 class="text-center mb-2 pb-2">New Goal</h1>
+    <div class="dropdown-divider pb-2"></div>
+    <div class="col-10 offset-1">
+        <form action="/incomehack/goal" method="POST" validate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="goal">Enter Goal Name:</label>
+                <input class="form-control" type="string" id="goal" name="goal" placeholder="Goal Name" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="dropdown-divider py-2"></div>
+            <div class="mb-3">
+                <label class="form-label" for="target">Enter Target Amount:</label>
+                <input class="form-control" type="number" id="target" name="target" placeholder="Target Amount" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="dropdown-divider py-2"></div>
+            <div class="mb-3">
+                <label class="form-label" for="amount">Enter amount saved already:</label>
+                <input class="form-control" type="number" id="amount" name="amount" placeholder="Amount" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <button class="btn btn-success float-end mt-3 p-2"> Set Goal</button>
+            </div>
+        </form>
+    </div>
+</div>    

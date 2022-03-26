@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
+                    alt="" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">User Details </h5>
+                    <div class="mb-3">
+                        username: <%= user.username %>
+                    </div>
+                    <div>
+                        email: <%= user.email %> 
+                    </div>
+                    <div class="my-3">
+                        <form action="userdetails?_method=PATCH" method="post" validate>
+                            <label class="form-label" for="risk">Risk Appetite: </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-select" id="risk" name="risk" aria-placeholder="Select risk" required>
+                                        <% for (let risk of risks) { %> 
+                                            <option value="<%= risk %>" <%= user.risk === risk ? 'selected' : '' %> > <%= risk %> </option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-info">Update Risk</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-3">
+                        <form action="userdetails/email?_method=PATCH" method="post" validate>
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Change Email</label>
+                                    <input class="form-control" type="email" id="email" name="email" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-success">Update Email</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

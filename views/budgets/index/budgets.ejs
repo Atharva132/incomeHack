@@ -1,0 +1,98 @@
+<div class="container row">
+    <div class="container col-lg-5 offset-1 pt-3 d-flex-column">
+        <h1 class="pb-3">Your Monthly Budgets</h1>
+            <form action="/incomehack" method="get">
+                <div class="container row m-3  d-flex">
+                    <div class="col-sm-5">
+                        <label class="form-label m-0" for="year"> <h4 class="p-0"> View for year: </h4> </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-select" id="year" name="year" aria-placeholder="Select Year" required>
+                            <option value="undefined"> All Years </option>
+                            <% for ( let year of years ) { %>
+                                <option value="<%= year %>" <%= year === parseInt(req.query.year) ? 'selected' : '' %> > <%= year %> </option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-success float-end"> Sort </button>
+                    </div>
+                </div>
+            </form>
+        <div  class="overflow-auto" style=" max-height: 1150px;">
+            <% if (budgets.length === 0) { %> 
+                <div class="border border-3 rounded-3 m-2 p-3 ps-3">
+                    <h3>Your monthly budgets will appear here</h2>
+                    <h4>Start by adding budget</h3>
+                    <div class="form-group clearfix col-3 p-0">
+                        <a href="/incomehack/new" class="text-decoration-none">
+                            <button class="btn btn-success float-end"> Add Budget </button>
+                        </a>
+                    </div>
+                </div>
+            <% } else { %>
+                <% for ( let budget of budgets) { %> 
+                    <% if (req.query.year !== 'undefined' && req.query.year) { %>  
+                        <% if (budget.year === parseInt(req.query.year) ) { %> 
+                            <div class="container row d-flex flex-column">
+                                <a href="incomehack/<%= budget._id %>" class="text-decoration-none px-0">
+                                    <div class="card text-dark bg-light d-flex">
+                                        <div class="card-header"> <h5 class="m-0"><%= budget.month %> <%= budget.year %> </h5></div>
+                                        <div class="card-body">
+                                        <h5 class="card-title"> Income: <%= budget.income %> </h5>
+                                        <p class="card-text"> 
+                                            <% const totalExpenses = totalExpense(budget.expenses) %>
+                                            <% const finances = finance(budget.income, totalExpenses); %>
+                                            <% if (finances.budget) { %> 
+                                            <span>Total Expenses: ₹<%= finances.budget.expenses %> </span>
+                                            <span>Wants: ₹<%= finances.budget.wants %> </span>
+                                            <span>Savings: ₹<%= finances.budget.savings %> </span>
+                                            <% } %> 
+                                            <br>
+                                            <% if (finances.msg) { %> 
+                                                <div><%= finances.msg %> </div>
+                                            <% } %></p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <br>
+                            </div>
+                        <% } %> 
+                    <% } else { %>
+                        <div class="container row d-flex flex-column">
+                            <a href="incomehack/<%= budget._id %>" class="text-decoration-none px-0">
+                                <div class="card text-dark bg-light d-flex">
+                                    <div class="card-header"> <h5 class="m-0"><%= budget.month %> <%= budget.year %> </h5></div>
+                                    <div class="card-body">
+                                    <h5 class="card-title"> Income: ₹<%= budget.income %> </h5>
+                                    <p class="card-text"> 
+                                        <% const totalExpenses = totalExpense(budget.expenses) %>
+                                        <% const finances = finance(budget.income, totalExpenses); %>
+                                        <% if (finances.budget) { %> 
+                                        <span>Total Expenses: ₹<%= finances.budget.expenses %> </span>
+                                        <span>Wants: ₹<%= finances.budget.wants %> </span>
+                                        <span>Savings: ₹<%= finances.budget.savings %> </span>
+                                        <% } %> 
+                                        <br>
+                                        <% if (finances.msg) { %> 
+                                            <div><%= finances.msg %> </div>
+                                        <% } %></p>
+                                    </div>
+                                </div>
+                            </a>
+                            <br>
+                        </div>
+                    <% } %> 
+                <% } %> 
+            <% } %>
+        </div>
+        <% if (budgets.length !== 0) { %> 
+            <div class="form-group clearfix p-0 m-3">
+                <a href="/incomehack/new" class="text-decoration-none align-items-left">
+                    <button class="btn btn-success float-end"> Add New Budget </button>
+                </a>
+            </div>
+        <% } %>
+    </div>
+    <%- include('goals')%>
+</div>

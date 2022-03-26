@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="py-1"><h1>Welcome <%= currentUser.username %> </h1></div>
+
+<div class="container border border-2 rounded-pill m-3 p-3 d-flex flex-column">
+    <div class="row offset-1 pt-1 pb-3">
+        <div class="col-md"><h3>DashBoard</h3></div>
+    </div>
+    <div class="row offset-1 pb-2">
+        <div class="col-md"><h4>Total Income: ₹<%= resultTotals.totalIncome %> </h4></div>
+    </div>
+    <div class="row row-cols-3 offset-1 pt-2">
+        <div class="col-md text-danger">
+            <h5 class="text-center">Total Expenses: ₹<%= resultTotals.totalExpenses %></h5>
+            <h5 class="text-center">
+                <% if (resultTotals.totalIncome !== 0) { %>
+                    <%= Math.round(percent(resultTotals.totalExpenses).of(resultTotals.totalIncome)) %>%
+                <% } %>
+            </h5>
+        </div>
+        <div class="col-md text-primary">
+            <h5 class="text-center">Total Wants: ₹<%= resultTotals.totalWants %> </h5>
+            <h5 class="text-center">
+                <% if (resultTotals.totalIncome !== 0) { %>
+                    <%= Math.round(percent(resultTotals.totalWants).of(resultTotals.totalIncome)) %>%
+                <% } %>
+            </h5>
+        </div>
+        <div class="col-md text-success">
+            <h5 class="text-center">Total Savings: ₹<%= resultTotals.totalSavings %></h5>
+            <h5 class="text-center">
+                <% if (resultTotals.totalIncome !== 0) { %>
+                    <%= Math.round(percent(resultTotals.totalSavings).of(resultTotals.totalIncome)) %>%
+                <% } %>
+            </h5>
+        </div>
+    </div>
+</div>
+
+<%- include('./index/budgets')%>

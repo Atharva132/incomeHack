@@ -1,0 +1,78 @@
+<% layout('layouts/boilerplate')%>
+<h1> Showing Budget for <%= budget.month %> <%= budget.year %></h1>
+<div class="mt-4">
+  <h2>Your Income: ₹<%= budget.income %> </h2>
+</div>
+
+
+<div class="container row col-md-12 mt-4 mb-3 me-5 px-5">
+  <% if(finances.msg){ %> 
+    <div class="container">
+    <div class="row alert-danger border border-2 border-danger rounded-pill p-3 m-4 mt-0"> <h5 class="text-center m-0"><%= finances.msg %></h5> </div>
+    </div>
+  <% } %> 
+<div class="container border border-3 border-secondary rounded">
+  <div class="row">
+    <div class="col border-end border-dark p-2 pt-3 alert-danger">
+      <h5 class="text-center">Total Expenses: ₹<%= finances.budget.expenses %></h5>
+      <h5 class="text-center"><%= Math.round(percent(finances.budget.expenses).of(budget.income)) %>% </h5>
+    </div>
+    <div class="col p-2 pt-3 alert-info">
+      <h5 class="text-center"> Total Wants: ₹<%= finances.budget.wants %> </h5>
+      <h5 class="text-center"><%= Math.round(percent(finances.budget.wants).of(budget.income)) %>% </h5>
+    </div>
+    <div class="col border-start border-dark p-2 pt-3 alert-success">
+      <h5 class="text-center"> Total Savings: ₹<%= finances.budget.savings %> </h5>
+      <h5 class="text-center"><%= Math.round(percent(finances.budget.savings).of(budget.income)) %>% </h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col p-2 border-end border-top border-dark d-flex align-items-top justify-content-center alert-danger">
+      <div>
+        <ul>
+          <% if(finances.budget.expenses !== 0) { %> 
+            <h5 class="text-left"> Your expenses:- </h5>
+            <% for (let expense in budget.expenses) { %> 
+                <% if (budget.expenses.hasOwnProperty(expense)){ %> 
+                    <% if (budget.expenses[expense]) { %> 
+                        <li> <%= expense %>: ₹<%= budget.expenses[expense] %></li> 
+                    <% } %>
+                <% } %> 
+            <% } %>
+          <% } else { %>
+            <h5>You don't have any expenses</h5>
+          <% } %>  
+      </ul>
+    </div>    
+  </div>
+    <div class="col p-2 border-top border-dark alert-info">
+      <h5 class="text-center"> You can spend this amount on your goals, debts and luxuries </h5>
+    </div>
+    <div class="col p-2 border-top border-start border-dark d-flex align-items-top justify-content-center alert-success">
+      <% if (finances.budget.savings) { %> 
+        <div> <h5 class="text-left"> Your asset allocation:-</h5>
+          <p class="text-dark"> <strong> Risk: <%= currentUser.risk %> </strong></p>
+          <ul>
+            <li>mutual funds: ₹<%= asset.mutualFunds %>  </li>
+            <li>stocks: ₹<%= asset.stocks %> </li>
+            <li>liquid savings: ₹<%= asset.liquidSavings %> </li>
+            <li>emergency fund:  ₹<%= asset.emergencyFund %></li>
+            <li>fixed deposit:  ₹<%= asset.fixedDeposit %></li>
+          </ul>
+        </div> 
+      <% } else { %> 
+        <h5 class="text-center">Decrease your expenses and save some money</h5>
+      <% } %>   
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="offset-9">
+  <div class="card-body text-right">
+    <a class="card-link btn btn-info" href="/incomehack/<%= budget._id %>/edit">Edit Budget</a>
+    <form class="d-inline" action="/incomehack/<%= budget._id %>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+</div>

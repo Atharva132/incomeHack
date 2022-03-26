@@ -1,0 +1,128 @@
+<% layout('layouts/boilerplate')%>
+<div class="row col-md-6 offset-md-3 border border-2 border-success rounded-3 py-4 bg-light my-5">
+    <h1 class="text-center mb-2 pb-2">New Budget</h1>
+    <div class="dropdown-divider pb-2"></div>
+    <div class="col-10 offset-1">
+        <form action="/incomehack" method="POST" validate class="validated-form">
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label class="form-label" for="month">Enter Month:</label>
+                    <select class="form-select" id="month" name="month" aria-placeholder="Select month" required>
+                        <% for (let month of months) { %> 
+                            <option value="<%= month %>"> <%= month %> </option>
+                        <% } %>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" for="year">Enter Year:</label>
+                    <select class="form-select" id="year" name="year" aria-placeholder="Select Year" required>
+                        <% for (let i = 2000; i <= 2100; i++) { %> 
+                            <option value="<%= i %>"> <%= i %> </option>
+                        <% } %>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-divider py-2"></div>
+            <div class="mb-3">
+                <label class="form-label" for="income">Enter Income:</label>
+                <input class="form-control" type="number" id="income" name="income" placeholder="Income" required>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="dropdown-divider py-2"></div>
+            <div>
+                <span>Enter Expenses:</span>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="rent">Rent:</label>
+                        <input class="form-control" type="number" id="rent" name="expenses[rent]" placeholder="Rent">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="mortgage">Mortgage:</label>
+                        <input class="form-control" type="number" id="mortgage" name="expenses[mortgage]" placeholder="Mortgage">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="travel">Travel/Transportation:</label>
+                        <input class="form-control" type="number" id="travel" name="expenses[travel]" placeholder="Travel/Transportation">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="groceries">Groceries/Food:</label>
+                        <input class="form-control" type="number" id="groceries" name="expenses[groceries]" placeholder="Groceries/Food">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="utilities">Utilities:</label>
+                        <input class="form-control" type="number" id="utilities" name="expenses[utilities]" placeholder="Utilities">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="education">Education:</label>
+                        <input class="form-control" type="number" id="education" name="expenses[education]" placeholder="Education">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="loans">Loans:</label>
+                        <input class="form-control" type="number" id="loans" name="expenses[loans]" placeholder="Loans">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="insurances">Insurances:</label>
+                        <input class="form-control" type="number" id="insurances" name="expenses[insurances]" placeholder="Insurances">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="personal">Personal:</label>
+                        <input class="form-control" type="number" id="personal" name="expenses[personal]" placeholder="personal">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label" for="misc">Miscellaneous:</label>
+                        <input class="form-control" type="number" id="misc" name="expenses[misc]" placeholder="Miscellaneous">
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <button class="btn btn-success float-end mt-3 p-2"> Add Budget </button>
+            </div>
+        </form>
+    </div>
+</div>
