@@ -19,7 +19,7 @@ const User = require('./models/user');
 
 const MongoDBStore = require("connect-mongo");
 
-const dbUrl = process.env.DBUrl || 'mongodb://localhost:27017/budget';
+const dbUrl = 'mongodb://localhost:27017/budget';
 
 
 const budgetRoutes = require('./routes/budgets');
