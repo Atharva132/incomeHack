@@ -4,7 +4,12 @@ const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const users = require('../controllers/users');
 const { isLoggedIn, validateUser } = require('../middleware');
+const { route } = require('./budgets');
+const budgets = require('../controllers/budgets');
 
+router.route('/')
+	.get(budgets.index)
+	
 router.route('/register')
 	.get(users.renderRegister)
 	.post(validateUser, catchAsync(users.register));
