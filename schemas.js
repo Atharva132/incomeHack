@@ -65,7 +65,7 @@ module.exports.goalSchema = Joi.object({
 module.exports.debtSchema = Joi.object({
 	debt: Joi.string().required().escapeHTML(),
 	amount: Joi.number().required().min(0),
-	repayed: Joi.number().min(0).allow('', null).default(0)
+	repaid: Joi.number().min(0).allow('', null).default(0)
 });
 
 module.exports.userSchema = Joi.object({
