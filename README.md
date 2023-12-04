@@ -14,3 +14,7 @@ incomeHack is a simple budgeting web application for managing monthly budgets, s
 4. Now to start the app run ```node app.js```
 
 * Make sure you created database in mongodb and provided proper url in app.js line 22.
+
+## Additional Configuration
+
+To use forget password functionality, add the email and [app password](https://support.google.com/accounts/answer/185833?visit_id=638372979865655056-973500272&p=InvalidSecondFactor&rd=1) to the .env file.
