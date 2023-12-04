@@ -98,7 +98,7 @@ module.exports.forgot = (req, res, next) => {
           service: 'Gmail', 
           auth: {
             user: process.env.EMAIL,
-            pass: process.env.EMAILPWNEW
+            pass: process.env.EMAILPW
           }
         });
         var mailOptions = {
@@ -162,7 +162,7 @@ module.exports.reset = (req, res) => {
           service: 'Gmail', 
           auth: {
             user: process.env.EMAIL,
-            pass: process.env.EMAILPWNEW
+            pass: process.env.EMAILPW
           }
         });
         var mailOptions = {
