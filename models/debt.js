@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 debtSchema = new Schema({
     debt: String,
     amount: Number,
-    repayed: Number,
+    repaid: Number,
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'

@@ -16,20 +16,20 @@
                     <div class="card text-dark bg-light d-flex">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <% if (debt.repayed === debt.amount) { %> 
-                                    <div class="text-success"><h4>Debt Repayed</h4></div>
+                                <% if (debt.repaid === debt.amount) { %> 
+                                    <div class="text-success"><h4>Debt Repaid</h4></div>
                                 <% } %> 
-                                <%= debt.debt %> <span class="float-end"><%= Math.round(percent(debt.repayed).of(debt.amount)) %>% Repayed </span>
+                                <%= debt.debt %> <span class="float-end"><%= Math.round(percent(debt.repaid).of(debt.amount)) %>% repaid </span>
                             </h5>
                             <h6 class="card-subtitle mb-2 text-muted">Debt Amount: ₹<%= debt.amount %> </h6>
-                            <p class="card-text">Debt Repayed: ₹<%= debt.repayed %> </p>
+                            <p class="card-text">Debt Repaid: ₹<%= debt.repaid %> </p>
                             <form action="incomehack/debt/<%= debt._id %>?_method=PATCH" method="post" validate>
                                 <div class="container row ps-3 pe-0 me-0">
                                     <div class="col-4 p-0">
-                                        <label class="form-label" for="addRepayed">Add Repayed Amount:</label>
+                                        <label class="form-label" for="addrepaid">Add Repaid Amount:</label>
                                     </div>
                                     <div class="col-4 p-0">
-                                        <input class="form-control" type="number" id="addRepayed" name="addRepayed" placeholder="Amount" required>
+                                        <input class="form-control" type="number" id="addrepaid" name="addrepaid" placeholder="Amount" required>
                                     </div>
                                     <div class="form-group clearfix col-3 p-0">
                                         <button class="btn btn-success float-end"> Add </button>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-5 m-0 p-0">
                                     <form class="d-inline" action="incomehack/debt/complete/<%= debt._id %>?_method=PATCH" method="POST">
-                                        <button class="btn btn-info">Mark as Repayed</button>
+                                        <button class="btn btn-info">Mark as repaid</button>
                                     </form>
                                 </div>
                             </div>

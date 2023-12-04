@@ -23,11 +23,11 @@ module.exports.renderEditDebt =  async(req, res) => {
 module.exports.createDebt = async (req, res) => {
     const newDebt = new Debt(req.body)
     newDebt.author = req.user._id;
-    if (newDebt.repayed > newDebt.amount) {
-        throw new ExpressError('Amount to be repayed cannot be greater than debt amount', 406)
+    if (newDebt.repaid > newDebt.amount) {
+        throw new ExpressError('Amount to be repaid cannot be greater than debt amount', 406)
     }
-    if (newDebt.repayed === '' || newDebt.repayed === null) {
-        newDebt.repayed = 0;
+    if (newDebt.repaid === '' || newDebt.repaid === null) {
+        newDebt.repaid = 0;
     }
     await newDebt.save();
     req.flash('success', 'Successfully added a new debt!');
@@ -37,11 +37,11 @@ module.exports.createDebt = async (req, res) => {
 module.exports.updateDebt = async(req, res) => {
     const { id } = req.params;
     const updatedDebt = new Debt(req.body)
-    if (updatedDebt.repayed > updatedDebt.amount) {
-        throw new ExpressError('Amount to be repayed cannot be greater than debt amount', 406)
+    if (updatedDebt.repaid > updatedDebt.amount) {
+        throw new ExpressError('Amount to be repaid cannot be greater than debt amount', 406)
     }
-    if (updatedDebt.repayed === '' || updatedDebt.repayed === null) {
-        updatedDebt.repayed = 0;
+    if (updatedDebt.repaid === '' || updatedDebt.repaid === null) {
+        updatedDebt.repaid = 0;
     }
     await Debt.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
     req.flash('success', 'Successfully updated debt!');
@@ -50,20 +50,20 @@ module.exports.updateDebt = async(req, res) => {
 
 module.exports.repayDebt = async (req, res) => {
     const { id } = req.params;
-    const { addRepayed } = req.body;
+    const { addrepaid } = req.body;
     const debt = await Debt.findById(id);
-    debt.repayed += parseInt(addRepayed);
-    if (addRepayed < 0) {
-        throw new ExpressError('Amount to be repayed cannot be negative', 406)
+    debt.repaid += parseInt(addrepaid);
+    if (addrepaid < 0) {
+        throw new ExpressError('Amount to be repaid cannot be negative', 406)
     }
-    if (debt.repayed > debt.amount) {
-        throw new ExpressError('Amount to be repayed cannot be greater than debt amount', 406)
+    if (debt.repaid > debt.amount) {
+        throw new ExpressError('Amount to be repaid cannot be greater than debt amount', 406)
     }
-    await Debt.findByIdAndUpdate(id, { $set: { repayed: debt.repayed } }, { runValidators: true, new: true })
-    if (debt.repayed === debt.amount) {
-        req.flash('success', `Congratulations! You have completely repayed your debt ${debt.debt}!`);
+    await Debt.findByIdAndUpdate(id, { $set: { repaid: debt.repaid } }, { runValidators: true, new: true })
+    if (debt.repaid === debt.amount) {
+        req.flash('success', `Congratulations! You have completely repaid your debt ${debt.debt}!`);
     } else {
-        req.flash('success', `Successfully added repayed amount to debt ${debt.debt}!`);
+        req.flash('success', `Successfully added repaid amount to debt ${debt.debt}!`);
     }
     res.redirect('/incomehack');
 }
@@ -71,9 +71,10 @@ module.exports.repayDebt = async (req, res) => {
 module.exports.completeDebt = async(req, res) => {
     const { id } = req.params;
     const debt = await Debt.findById(id);
-    debt.repayed = debt.amount;
-    await Debt.findByIdAndUpdate(id, { $set: { repayed: debt.repayed }} , { runValidators: true, new: true })
-    req.flash('success', `Congratulations! You have completely repayed your debt ${debt.debt}!`);
+    debt.repaid = debt.amount;
+    await Debt.findByIdAndUpdate(id, { $set: { repaid: debt.repaid }} , { runValidators: true, new: true })
+    req.flash('success', `Congratulations! You have completely repaid
+    your debt ${debt.debt}!`);
     res.redirect('/incomehack')
 }
 
