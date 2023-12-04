@@ -17,4 +17,4 @@ incomeHack is a simple budgeting web application for managing monthly budgets, s
 
 ## Additional Configuration
 
-To use forget password functionality, add the email and [app password](https://support.google.com/accounts/answer/185833?visit_id=638372979865655056-973500272&p=InvalidSecondFactor&rd=1) to the .env file.
+To use forget password functionality, create an email/gmail account for the application (can use personal as well), add the email and [app password](https://support.google.com/accounts/answer/185833?visit_id=638372979865655056-973500272&p=InvalidSecondFactor&rd=1) to the .env file.
